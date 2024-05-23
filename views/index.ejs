@@ -1,13 +1,34 @@
+<!-- views/morpion.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>Morpion</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            border: 10px solid black;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1><%= title %></h1>
-    <p><%= message %></p>
+    <h1>Morpion</h1>
+    <table>
+        <% for (let i = 0; i < 3; i++) { %>
+            <tr>
+                <% for (let j = 0; j < 3; j++) { %>
+                    <td><input type="checkbox" name="case_<%= i %>-<%= j %>"></td>
+                <% } %>
+            </tr>
+        <% } %>
+    </table>
 </body>
 </html>
 
