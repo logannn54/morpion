@@ -18,18 +18,60 @@
 </head>
 <body>
     <h1>Morpion</h1>
-    <form action="/submit" method="POST">
-    <table>
-        <% for (let i = 0; i < 3; i++) { %>
-            <tr>
-                <% for (let j = 0; j < 3; j++) { %>
-                    <td><input type="checkbox" name="case_<%= i %>-<%= j %>"></td>
-                <% } %>
-            </tr>
-        <% } %>
-    </table>
-    <button type="submit">Submit</button>
+    <form id="gameForm" action="/submit" method="POST">
+        <table>
+            <% for (let i = 0; i < 3; i++) { %>
+                <tr>
+                    <% for (let j = 0; j < 3; j++) { %>
+                        <td><input type="checkbox" name="case_<%= i %>-<%= j %>"></td>
+                    <% } %>
+                </tr>
+            <% } %>
+        </table>
+        <button type="submit">Submit</button>
     </form>
+
+    <script>
+        function checkVictory() {
+            const victoryConditions = [
+                [[0, 0], [0, 1], [0, 2]], 
+                [[1, 0], [1, 1], [1, 2]], 
+                [[2, 0], [2, 1], [2, 2]], 
+                [[0, 0], [1, 0], [2, 0]], 
+                [[0, 1], [1, 1], [2, 1]], 
+                [[0, 2], [1, 2], [2, 2]], 
+                [[0, 0], [1, 1], [2, 2]], 
+                [[0, 2], [1, 1], [2, 0]]  
+            ];
+
+            for (const condition of victoryConditions) {
+                const [firstRow, firstCol] = condition[0];
+                const [secondRow, secondCol] = condition[1];
+                const [thirdRow, thirdCol] = condition[2];
+
+                
+                if (document.querySelector(`input[name="case_${firstRow}-${firstCol}"]:checked`) &&
+                    document.querySelector(`input[name="case_${secondRow}-${secondCol}"]:checked`) &&
+                    document.querySelector(`input[name="case_${thirdRow}-${thirdCol}"]:checked`)) {
+                    return true; 
+                }
+            }
+            return false; 
+        }
+
+        
+        function handleSubmit(event) {
+            event.preventDefault(); 
+
+            
+            if (checkVictory()) {
+                alert('Vous avez gagné !'); 
+                
+            } 
+        }
+
+        
+        document.getElementById('gameForm').addEventListener('submit', handleSubmit);
+    </script>
 </body>
 </html>
-
