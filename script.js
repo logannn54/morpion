@@ -14,6 +14,16 @@ app.post('/submit', (req, res) => {
     res.render('index');
 });
 
+
+app.get('/victory', (req, res) => {
+    res.render('victory');
+});
+
+
+app.get('/newgame', (req, res) => {
+    res.redirect('/');
+});
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
-})
+});
