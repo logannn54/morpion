@@ -5,7 +5,7 @@ const { Pool } = require('pg');
 
 const pool = new Pool({
     user: 'postgres',
-    host: 'localhost',
+    host: '172.17.0.3',
     database: 'morpion',
     password: 'test54200',
     port: 5432,
@@ -45,8 +45,32 @@ app.get('/victory', (req, res) => {
 });
 
 
-app.get('/newgame', (req, res) => {
-    res.redirect('/');
+
+app.post('/newgame', (req, res) => {
+    pool.query('INSERT INTO games (state, player) VALUES ($1, $2) RETURNING id', ['.........', 'X'], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la création d\'une nouvelle partie : ', err);
+            res.sendStatus(500);
+        } else {
+            res.redirect(`/game/${result.rows[0].id}`);
+        }
+    });
+});
+
+
+
+
+app.get('/game/:id', (req, res) => {
+    const gameId = req.params.id;
+    pool.query('SELECT state FROM games WHERE id = $1', [gameId], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la récupération de l\'état de la partie : ', err);
+            res.sendStatus(500);
+        } else {
+            const gameState = result.rows[0].state;
+            res.render('game', { gameState, gameId });
+        }
+    });
 });
 
 app.listen(port, () => {

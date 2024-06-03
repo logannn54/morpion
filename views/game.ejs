@@ -1,0 +1,33 @@
+<script>
+    const initialState = "<%= gameState %>";
+    let currentState = initialState;
+
+    function updateGameDisplay() {
+       
+    }
+
+    function saveGameState() {
+        fetch('/game/${<%= gameId %>}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ gameState: currentState })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de l\'enregistrement de l\'état de la partie');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+
+    document.getElementById('cell1').addEventListener('click', () => {
+        currentState = newState;
+        updateGameDisplay();
+        saveGameState();
+    });
+</script>
