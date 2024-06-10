@@ -1,33 +1,41 @@
-<script>
-    const initialState = "<%= gameState %>";
-    let currentState = initialState;
-
-    function updateGameDisplay() {
-       
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeu de Morpion</title>
+  <style>
+    table {
+      border-collapse: collapse;
     }
-
-    function saveGameState() {
-        fetch('/game/${<%= gameId %>}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ gameState: currentState })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur lors de l\'enregistrement de l\'état de la partie');
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    td {
+      width: 200px;
+      height: 200px;
+      border: 10px solid black;
+      text-align: center;
     }
-
-
-    document.getElementById('cell1').addEventListener('click', () => {
-        currentState = newState;
-        updateGameDisplay();
-        saveGameState();
-    });
-</script>
+  </style>
+</head>
+<body>
+  <h1>Jeu de Morpion</h1>
+  <p>Joueur courant : <%= currentPlayer %></p>
+  <form action="/submit" method="POST">
+    <table>
+      <% for (let i = 0; i < boardState.length; i++) { %>
+        <tr>
+          <% for (let j = 0; j < boardState[i].length; j++) { %>
+            <td>
+              <% if (boardState[i][j] === '') { %>
+                <input type="radio" name="cell" value="<%= i + '-' + j %>" id="<%= 'checkbox-' + i + '-' + j %>" />
+              <% } else { %>
+                <%= boardState[i][j] %>
+              <% } %>
+            </td>
+          <% } %>
+        </tr>
+      <% } %>
+    </table>
+    <button type="submit">Envoyer</button>
+  </form>
+</body>
+</html>

@@ -6,14 +6,16 @@
     <title>Victoire</title>
 </head>
 <body>
-    <h1>Vous avez gagné !</h1>
-    <a id="newGameButtonVictory"><button type="button">Nouvelle Partie</button></a>
-
-    <script>
-        document.getElementById('newGameButtonVictory').addEventListener('click', (event) => {
-            event.preventDefault();
-            window.location.href = '/';
-        });
-    </script>
+    <h1>Fin de partie</h1>
+    <p><strong><%= message %></strong></p>
+    <% if (newGameRedirect) { %>
+        <form action="/newgame" method="POST">
+            <button type="submit">Nouvelle Partie</button>
+        </form>
+    <% } else { %>
+        <form action="/" method="GET">
+            <button type="submit">Accueil</button>
+        </form>
+    <% } %>
 </body>
 </html>
