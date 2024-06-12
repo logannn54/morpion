@@ -28,6 +28,16 @@ app.get('/', async (req, res) => {
   res.render('index');
 });
 
+app.post('/newgame', async (req, res) => {
+  try {
+    await pool.query('INSERT INTO games(state, player) VALUES($1, $2)', [JSON.stringify([["", "", ""], ["", "", ""], ["", "", ""]]), 'X']);
+    res.redirect('/game');
+  } catch (error) {
+    console.error('Error initializing new game:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.post('/api/games', async (req, res) => {
   try {
     const newState = JSON.stringify([["", "", ""], ["", "", ""], ["", "", ""]]);
@@ -38,16 +48,6 @@ app.post('/api/games', async (req, res) => {
     res.json({ id: result.rows[0].id });
   } catch (error) {
     console.error('Error creating new game:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-app.post('/newgame', async (req, res) => {
-  try {
-    await pool.query('INSERT INTO games(state, player) VALUES($1, $2)', [JSON.stringify([["", "", ""], ["", "", ""], ["", "", ""]]), 'X']);
-    res.redirect('/game');
-  } catch (error) {
-    console.error('Error initializing new game:', error);
     res.status(500).send('Internal Server Error');
   }
 });
