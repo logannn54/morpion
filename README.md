@@ -6,7 +6,8 @@ Pour ce projet, il est préférable d'utiliser Debian 12 et d'avoir déjà insta
 # Installation du projet
 
 Téléchargez le projet soit avec un git clone : ```git clone https://github.com/logannn54/morpion.git``` \
-Soit directement en téléchargeant le projet en zip.
+Soit directement en téléchargeant le projet en zip. \
+Une fois installé il faut se déplacé dans le répertoire morpion avec la commande : ```cd morpion```
 
 # Lancement du docker-compose
 
