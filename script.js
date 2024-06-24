@@ -1,6 +1,7 @@
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
+const Redis = require('ioredis');
 
 const app = express();
 const port = 3000;
@@ -12,6 +13,12 @@ const pool = new Pool({
   password: 'test54200',
   port: 5432,
 });
+
+const redisClient = new Redis({
+  host: 'localhost',
+  port: 6379,     
+});
+
 
 const corsOption = {
   origin: 'http://localhost:3001',

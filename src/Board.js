@@ -1,5 +1,3 @@
-// frontend/src/Board.js
-
 import React from 'react';
 import Square from './Square';
 

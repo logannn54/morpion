@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Board from './Board';
 
+
 function Game() {
+  const [gamesPlayed, setGamesPlayed] = useState(0);
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentStep, setCurrentStep] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
@@ -12,6 +14,7 @@ function Game() {
   }, []);
 
   const startNewGame = async () => {
+    setGamesPlayed(gamesPlayed + 1);
     const response = await fetch('http://localhost:3000/api/games', {
       method: 'POST',
       headers: {
@@ -24,6 +27,8 @@ function Game() {
     setCurrentStep(0);
     setXIsNext(true);
   };
+
+
 
   const handleClick = async (i) => {
     if (calculateWinner(history[currentStep]) || history[currentStep][i]) {
@@ -55,6 +60,9 @@ function Game() {
     setXIsNext(step % 2 === 0);
   };
 
+
+  
+
   const winner = calculateWinner(history[currentStep]);
   let status;
   if (winner) {
@@ -82,6 +90,9 @@ function Game() {
         {winner && (
           <button onClick={startNewGame}>Start New Game</button>
         )}
+      </div>
+      <div className="games-played">
+        <p>Total des parties jouées: {gamesPlayed}</p>
       </div>
     </div>
   );
