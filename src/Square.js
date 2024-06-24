@@ -1,9 +1,13 @@
+// frontend/src/Square.js
+
 import React from 'react';
 
-export default function Square({ value, onSquareClick }) {
+function Square({ value, onClick }) {
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button className="square" onClick={onClick}>
       {value}
     </button>
   );
 }
+
+export default Square;

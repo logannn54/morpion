@@ -1,5 +1,6 @@
 const express = require('express');
 const { Pool } = require('pg');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
@@ -12,9 +13,16 @@ const pool = new Pool({
   port: 5432,
 });
 
+const corsOption = {
+  origin: 'http://localhost:3001',
+  methods: ['GET', 'POST', 'PUT'],  
+  allowedHeaders: ['Content-Type'],
+};
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors(corsOption));
 
 
 pool.query(`

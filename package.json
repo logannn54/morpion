@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "proxy": "http://localhost:3000"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "Jeu Morpion",
   "dependencies": {
+    "cors": "^2.8.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "pg": "^8.12.0",
@@ -20,7 +22,7 @@
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.0"
   },
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/logannn54/morpion.git"
   },
